@@ -44,7 +44,12 @@ namespace PASample.Wpf
             var source = e.Source as TabControl;
             if (source != null)
             {
+                if (!string.IsNullOrEmpty(_lastTab))
+                {
+                    PAClientFactory.StopFeature(_lastTab);
+                }
                 _lastTab = ((TabItem)source.SelectedItem).Tag as string;
+                PAClientFactory.StartFeature(_lastTab);
             }
         }
 
@@ -151,7 +156,7 @@ namespace PASample.Wpf
                 return;
             }
 
-            var button = (Button) sender;
+            var button = (Button)sender;
             button.IsEnabled = false;
             await SendExpense(amt, (string)expenseReason.SelectedValue);
             button.IsEnabled = true;
