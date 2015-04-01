@@ -50,5 +50,11 @@ namespace PASample.Wpf
         {
             GetPAClient().ApplicationStop(immediate: immediate);
         }
+
+        public static void FeatureTick(string name, ExtendedKeys keys = null)
+        {
+            GetPAClient().FeatureTick(name, keys);
+        }
+
     }
 }
