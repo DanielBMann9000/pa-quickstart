@@ -50,10 +50,12 @@ namespace PASample.Wpf
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            PAClientFactory.StopApplication(true);
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            PAClientFactory.StartApplication(_licenseKey, _department);
         }
     }
 }
