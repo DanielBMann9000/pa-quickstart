@@ -90,10 +90,12 @@ namespace PASample.Wpf
 
             if (button.Content.Equals("Start"))
             {
+                PAClientFactory.StartFeature("Performance Counter");
                 button.Content = "Stop";
             }
             else
             {
+                PAClientFactory.StopFeature("Performance Counter");
                 button.Content = "Start";
             }
         }
