@@ -1,4 +1,5 @@
-﻿using PreEmptive.Analytics.Common;
+﻿using System;
+using PreEmptive.Analytics.Common;
 using PreEmptive.Analytics.NET;
 
 namespace PASample.Wpf
@@ -65,6 +66,14 @@ namespace PASample.Wpf
         public static void StopFeature(string featureName, ExtendedKeys keys = null)
         {
             GetPAClient().FeatureStop(featureName, keys);
+        }
+
+        public static void ReportException(ExceptionType exceptionType, Exception exception, string informationalMessage)
+        {
+            var exceptionInfo = new ExceptionInfo(exceptionType, exception, 
+                contact: null, comment: null, message: informationalMessage);
+
+            GetPAClient().ReportException(exceptionInfo);
         }
 
     }
