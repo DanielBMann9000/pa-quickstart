@@ -35,6 +35,7 @@ namespace PASample.Wpf
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            PAClientFactory.ReportException(ExceptionType.Uncaught, e.ExceptionObject as Exception, @"Exception bubbled up to the top of the stack.");
             MessageBox.Show("Unhandled Error simulated");
         }
 
