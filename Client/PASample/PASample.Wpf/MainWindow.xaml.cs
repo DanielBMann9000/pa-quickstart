@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using PreEmptive.Analytics.Common;
+using PreEmptive.Analytics.NET;
 
 namespace PASample.Wpf
 {
@@ -109,6 +110,7 @@ namespace PASample.Wpf
             }
             catch (Exception de)
             {
+                PAClientFactory.ReportException(ExceptionType.Caught, de, null);
                 MessageBox.Show("Handled Error simulated and sent to PA");
             }
 
