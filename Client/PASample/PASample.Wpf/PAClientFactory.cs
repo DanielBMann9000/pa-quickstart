@@ -37,5 +37,18 @@ namespace PASample.Wpf
 
             return client;
         }
+
+        public static void StartApplication(string instance, string department)
+        {
+            var keys = new ExtendedKeys();
+            keys.Add("License", instance);
+            keys.Add("Department", department);
+            GetPAClient(instance).ApplicationStart(keys);
+        }
+
+        public static void StopApplication(bool immediate = false)
+        {
+            GetPAClient().ApplicationStop(immediate: immediate);
+        }
     }
 }
