@@ -113,7 +113,6 @@ namespace PASample.Wpf
                 PAClientFactory.ReportException(ExceptionType.Caught, de, null);
                 MessageBox.Show("Handled Error simulated and sent to PA");
             }
-
         }
 
         private int _zero = 0;
@@ -147,6 +146,7 @@ namespace PASample.Wpf
         private void thrownBtn_Click(object sender, RoutedEventArgs e)
         {
             var ex = new System.ArgumentException("Argument is incorrect");
+            PAClientFactory.ReportException(ExceptionType.Thrown, ex, null);
             MessageBox.Show("Thrown Error simulated and sent to PA");
         }
 
