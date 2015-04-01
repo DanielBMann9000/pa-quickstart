@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using PreEmptive.Analytics.Common;
 
 namespace PASample.Wpf
 {
@@ -65,12 +66,16 @@ namespace PASample.Wpf
         {
             if (favoriteColor.SelectedIndex >= 0)
             {
+                var keys = new ExtendedKeys();
+                keys.Add("Happiness", slider.Value);
+                keys.Add("Color", favoriteColor.SelectedValue.ToString());
+                PAClientFactory.FeatureTick("Feedback Submitted", keys);
+
                 MessageBox.Show("Thank you for submitting your feedback", "Feedback Submitted");
             }
             else
             {
                 MessageBox.Show("Please select your favorite color.", "Error");
-
             }
         }
 
