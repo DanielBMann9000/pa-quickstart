@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PreEmptive.Analytics.Net</name>
+    </assembly>
+    <members>
+        <member name="T:PreEmptive.Analytics.NET.Common.CommonNetPlatform">
+            <summary>
+            Defines platform specific methods for retrieving information or creating platform specific implementations.
+            </summary>
+        </member>
+        <member name="F:PreEmptive.Analytics.NET.Common.CommonNetPlatform.Config">
+            <summary>
+            The configuration of this Platform
+            </summary>
+        </member>
+        <member name="F:PreEmptive.Analytics.NET.Common.CommonNetPlatform.Logger">
+            <summary>
+            A logger to which errors and warnings can be logged for debugging. Should never be null
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.#ctor(PreEmptive.Analytics.Common.Configuration,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            Constuctor for the Platform.
+            </summary>
+            <param name="config">A Configuration object used when implementing platform specific functionality.</param>
+            <param name="logger">A logger to which errors and warnings can be logged for debugging. This defaults to `new BlankLogger()`</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.CreateXMLTransmitter">
+            <summary>
+            Creates a platform specific IXMLTransmitter.
+            </summary>
+            <returns>A platform specific IXMLTransmitter</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetAgentInfo">
+            <summary>
+            Populates an AgentInfo object with platform specific data.
+            </summary>
+            <returns>The new AgentInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetHostInfo">
+            <summary>
+            Populates an HostInfo object with platform specific data.
+            </summary>
+            <returns>The new HostInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetOSInfo">
+            <summary>
+            Gets information about the operating system the application is running on.
+            </summary>
+            <returns>A new OSInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetUserInfo">
+            <summary>
+            Gets information about the user running the application.
+            </summary>
+            <returns>A new UserInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetDefaultEndpoint">
+            <summary>
+            Retrieves the endpoint string.
+            </summary>
+            <returns>The endpoint string.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetStackInfo(System.Exception)">
+            <summary>
+            Parses the stack information from the provided exception.
+            </summary>
+            <param name="exception">The Exception object.</param>
+            <returns>The parsed stack information.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetComponentInfo">
+            <summary>
+            Retrieves information about the components that make up the application.
+            </summary>
+            <returns>A list of information about the components.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetSettingsStore">
+            <summary>
+            Retrieves the interface describing a mechanism for persisting string values tied to string keys.
+            </summary>
+            <returns>The interface describing a mechanism for persisting string values tied to string keys.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetSystemInfo(System.Boolean)">
+            <summary>
+            Retrieves information about they system the application is running on.
+            </summary>
+            <param name="fulldata">Determines if information that takes significant time to gather should be included.</param>
+            <returns>The retrieved information about the system.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetPerformanceInfo(System.Boolean)">
+            <summary>
+            Retrieves performance information about the application.
+            </summary>
+            <param name="fulldata">Determines if information that takes significant time to gather should be included.</param>
+            <returns>The retrieved information about the application.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetOfflineDataStore">
+            <summary>
+            Retrieves the OfflineDataStore that defines how offline messages should be handled on the given platform.
+            </summary>
+            <returns>The object defining how to handle offline data.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetCurrentBinaryInfo">
+            <summary>
+            Returns a BinaryInfo object with information from the current package put into Name and Version and calling information.
+            </summary>
+            <returns>Fully populated BinaryInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.ExecuteAsyncIfSupported(System.Action,System.Boolean)">
+            <summary>
+            Executes the specified action asynchronously. The execution should be as soon as possible(which is why we're not using ThreadPool)
+            </summary>
+            <param name="action">The code to execute</param>
+            <param name="highPriority">If the code is of high priority</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.CommonNetPlatform.GetStopBehaviorDefaults">
+            <summary>
+            Gets the default ApplicationStopBehavior values appropriate for the platform
+            Implementors can just forward this to PlatformClient.CoreDefaultStopBehavior() if no particular stop behavior is needed.
+            </summary>
+            <returns>The stop behavior defaults for this platform</returns>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Common.MonoOfflineDataStore">
+            <summary>
+            Class for handling the offline storage of messages.
+            </summary>
+        </member>
+        <member name="F:PreEmptive.Analytics.NET.Common.MonoOfflineDataStore.Logger">
+            <summary>
+            A logger for debug log messages to be sent to
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.MonoOfflineDataStore.#ctor(System.String,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            Constructor for the OfflineDataStore.
+            </summary>
+            <param name="appid">A string that identifies the application.</param>
+            <param name="logger">A logger for debug log messages to be sent to</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.MonoOfflineDataStore.SaveBatch(PreEmptive.Analytics.Common.MessageBatch)">
+            <summary>
+            Saves off a batch of messages.
+            </summary>
+            <param name="messagebatch">The batch of messages to be saved.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.MonoOfflineDataStore.GetSavedBatch">
+            <summary>
+            Gets the next cached MessageBatch that will be sent.
+            </summary>
+            <returns>The next cached MessageBatch.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.MonoOfflineDataStore.ClearBatch(PreEmptive.Analytics.Common.MessageBatch)">
+            <summary>
+            Removest the specified message batch.
+            </summary>
+            <param name="messagebatch">The MessageBatch to remove.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.MonoOfflineDataStore.Dispose">
+            <summary>
+            Cleans up the Isolated Storage reference
+            </summary>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Common.MonoSettingsStore">
+            <summary>
+            Class implementing a mechanism for persisting string values tied to string keys.
+            This implementation works around Mono bugs with IsolatedStorage
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.MonoSettingsStore.#ctor(System.String)">
+            <summary>
+            Constructor for the SettingsStore.
+            </summary>
+            <param name="appid">A string identifying the application.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.MonoSettingsStore.Flush">
+            <summary>
+            Saves the ISettingsStore data.
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.MonoSettingsStore.Item(System.String)">
+            <summary>
+            Gets or sets a key/value to persist. If the result is null, the key didn't exist
+            If set to a value of null, the key is removed from the persistance store
+            Exceptions should not normally be thrown
+            </summary>
+            <param name="key">The key.</param>
+            <returns>The value</returns>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.MonoSettingsStore.Count">
+            <summary>
+            Gets the amount of key value pairs in the store
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.MonoSettingsStore.Keys">
+            <summary>
+            Gets a copy of the keys list. Any changes made to the returned list are not persisted(it's a copy!)
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.MonoSettingsStore.MaxValueLength">
+            <summary>
+            The maximum permitted length of the value.
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.MonoSettingsStore.MaxKeyLength">
+            <summary>
+            The maximum permitted length of the key.
+            </summary>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Common.OfflineDataStore">
+            <summary>
+            Class for handling the offline storage of messages.
+            </summary>
+        </member>
+        <member name="F:PreEmptive.Analytics.NET.Common.OfflineDataStore.Logger">
+            <summary>
+            A logger for debug log messages to be sent to
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.OfflineDataStore.#ctor(System.String,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            Constructor for the OfflineDataStore.
+            </summary>
+            <param name="appid">A string that identifies the application.</param>
+            <param name="logger">A logger for debug log messages to be sent to</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.OfflineDataStore.SaveBatch(PreEmptive.Analytics.Common.MessageBatch)">
+            <summary>
+            Saves off a batch of messages.
+            </summary>
+            <param name="messagebatch">The batch of messages to be saved.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.OfflineDataStore.GetSavedBatch">
+            <summary>
+            Gets the next cached MessageBatch that will be sent.
+            </summary>
+            <returns>The next cached MessageBatch.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.OfflineDataStore.ClearBatch(PreEmptive.Analytics.Common.MessageBatch)">
+            <summary>
+            Removest the specified message batch.
+            </summary>
+            <param name="messagebatch">The MessageBatch to remove.</param>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Common.SettingsStore">
+            <summary>
+            Class implementing a mechanism for persisting string values tied to string keys.
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.SettingsStore.#ctor(System.String)">
+            <summary>
+            Constructor for the SettingsStore.
+            </summary>
+            <param name="appid">A string identifying the application.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.SettingsStore.Flush">
+            <summary>
+            Saves the ISettingsStore data.
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.SettingsStore.Item(System.String)">
+            <summary>
+            Gets or sets a key/value to persist. If the result is null, the key didn't exist
+            If set to a value of null, the key is removed from the persistance store
+            Exceptions should not normally be thrown
+            </summary>
+            <param name="key">The key.</param>
+            <returns>The value</returns>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.SettingsStore.Count">
+            <summary>
+            Gets the amount of key value pairs in the store
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.SettingsStore.Keys">
+            <summary>
+            Gets a copy of the keys list. Any changes made to the returned list are not persisted(it's a copy!)
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.SettingsStore.MaxValueLength">
+            <summary>
+            The maximum permitted length of the value.
+            </summary>
+        </member>
+        <member name="P:PreEmptive.Analytics.NET.Common.SettingsStore.MaxKeyLength">
+            <summary>
+            The maximum permitted length of the key.
+            </summary>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Common.NetUtilities">
+            <summary>
+            Utilities used by the Classic-ish APIs
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.NetUtilities.RunningInMono">
+            <summary>
+            Determines if the current application is running .NET Framework or Mono (including Xamarin)
+            </summary>
+            <returns>true if running under a mono implementation</returns>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Common.XMLTransmitter">
+            <summary>
+            Class that handles the transmission of XML for Classic .NET and Xamarin
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.XMLTransmitter.#ctor(PreEmptive.Analytics.Common.Configuration,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            Constructor for the XML transmitter.
+            </summary>
+            <param name="config">Used for getting the endpoint to send to.</param>
+            <param name="logger">A logger with which to log errors which may occur during transmission</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Common.XMLTransmitter.Post(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.String)">
+            <summary>
+            Sends data to the endpoint.
+            </summary>
+            <param name="headers">A list of HTTP headers which should be attached to the HTTP request</param>
+            <param name="data">The data to transmit.</param>
+            <returns>True if the transmission succeeded. False otherwise.</returns>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Logger">
+            <summary>
+            Platform specific logging class.
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Logger.#ctor(PreEmptive.Analytics.Common.LoggingLevel,System.String)">
+            <summary>
+            Sets the logging level to the specified logging level upon the creation of a new instance.
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Logger.LogError(System.String)">
+            <summary>
+            The function that will be called when an error needs to be logged. This indicates that a setting or behavior of the API is incorrect.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Logger.LogWarning(System.String)">
+            <summary>
+            The function that will be called when an error needs to be logged. This indicates that the API may not perform as expected.
+            </summary>
+            <param name="message">The message that describes the Warning.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Logger.LogInfo(System.String)">
+            <summary>
+            The function that will be called when an error needs to be logged. This is used to report general behavior of the API.
+            </summary>
+            <param name="message">The message describing general API behavior.</param>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.PAClient">
+            <summary>
+            Exposes the Analytics Client functionality.
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.PAClient.GetNewPlatform">
+            <summary>
+            Retrieves the platform the of the device.
+            </summary>
+            <returns>An object that defines the platform.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.PAClient.#ctor(System.Guid,System.Guid,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            Constructor for the Client.
+            </summary>
+            <param name="companyID">A Guid that represents the companyID.</param>
+            <param name="applicationID">A Guid that represents the applicationID.</param>
+            <param name="logger">ILogger instance that determines how logging is done.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.PAClient.#ctor(System.String,System.String,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            Constructor for the Client.
+            </summary>
+            <param name="companyID">A Guid that represents the companyID.</param>
+            <param name="applicationID">A Guid that represents the applicationID.</param>
+            <param name="logger">ILogger instance that determines how logging is done.</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.PAClient.#ctor(PreEmptive.Analytics.Common.Configuration,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            Constructor for the BaseClient.
+            </summary>
+            <param name="config">A Configuration object that defines the behavior of the Client.</param>
+            <param name="logger">ILogger instance that determines how logging is done.</param>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.Platform">
+            <summary>
+            Defines platform specific methods for retrieving information or creating platform specific implementations.
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Platform.#ctor(PreEmptive.Analytics.Common.Configuration,PreEmptive.Analytics.Common.ILogger)">
+            <summary>
+            constuctor for the platform.
+            </summary>
+            <param name="config">a configuration object used when implementing platform specific functionality.</param>
+            <param name="logger">A logger to which errors and warnings can be logged for debugging. This defaults to `new BlankLogger()`</param>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Platform.GetAgentInfo">
+            <summary>
+            Populates an AgentInfo object with platform specific data.
+            </summary>
+            <returns>The new AgentInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Platform.GetOSInfo">
+            <summary>
+            Gets information about the operating system the application is running on.
+            </summary>
+            <returns>A new OSInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Platform.GetUserInfo">
+            <summary>
+            Gets information about the user running the application.
+            </summary>
+            <returns>A new UserInfo object.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Platform.GetSystemInfo(System.Boolean)">
+            <summary>
+            Retrieves information about they system the application is running on.
+            </summary>
+            <param name="fulldata">Determines if information that takes significant time to gather should be included.</param>
+            <returns>The retrieved information about the system.</returns>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.Platform.GetPerformanceInfo(System.Boolean)">
+            <summary>
+            Retrieves performance information about the application.
+            </summary>
+            <param name="fulldata">Determines if information that takes significant time to gather should be included.</param>
+            <returns>The retrieved information about the application.</returns>
+        </member>
+        <member name="T:PreEmptive.Analytics.NET.SystemInfoPopulator">
+            <summary>
+            This gets the System Information of the computer it is running on. 
+            This is used by SystemProfile
+            </summary>
+        </member>
+        <member name="M:PreEmptive.Analytics.NET.SystemInfoPopulator.GetNewSystemInfo(System.Boolean)">
+            <summary>
+            Gets and populates a new SystemInfo object
+            </summary>
+            <param name="fullData">Set to true to get as much data as possible at the expense of being slower</param>
+            <returns>a populated SystemInfo object</returns>
+        </member>
+    </members>
+</doc>
