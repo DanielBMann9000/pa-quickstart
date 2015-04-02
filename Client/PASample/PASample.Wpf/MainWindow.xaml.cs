@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace PASample.Wpf
 {
@@ -16,7 +17,7 @@ namespace PASample.Wpf
         private const string EXPENSE_FEATURE = "Expense Request";
 
         private readonly string[] _reasons = { "Client Dinner", "Purchase Airfare", "Prepay Hotel", "Register for Conference" };
-        private string _lastTab;
+        private string _lastTab = "About";
 
         public MainWindow()
         {
@@ -27,23 +28,27 @@ namespace PASample.Wpf
 
             this.favoriteColor.ItemsSource = nameToColor;
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             this.expenseReason.ItemsSource = _reasons;
+
+            Dispatcher.UnhandledException += DispatcherOnUnhandledException;
         }
 
-
-        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private void DispatcherOnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs dispatcherUnhandledExceptionEventArgs)
         {
-            MessageBox.Show("Unhandled Error simulated");
+            dispatcherUnhandledExceptionEventArgs.Handled = true;
         }
 
+      
 
         private void tabCtrl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var source = e.Source as TabControl;
+            
             if (source != null)
             {
+                InstrumentationHelpers.TabStop[_lastTab]();
                 _lastTab = ((TabItem)source.SelectedItem).Tag as string;
+                InstrumentationHelpers.TabStart[_lastTab]();
             }
         }
 
@@ -74,18 +79,37 @@ namespace PASample.Wpf
             }
         }
 
+        public Dictionary<string, object> GetFeedbackValues()
+        {
+            return new Dictionary<string, object>
+            {
+                {"Happiness", slider.Value  },
+                {"Color", favoriteColor.SelectedValue.ToString() }
+            };
+        }
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             var button = (Button)e.Source;
 
             if (button.Content.Equals("Start"))
             {
-                button.Content = "Stop";
+                StartPerformance(button);
             }
             else
             {
-                button.Content = "Start";
+                StopPerformance(button);
             }
+        }
+
+        private void StartPerformance(Button button)
+        {
+            button.Content = "Stop";
+        }
+
+        private void StopPerformance(Button button)
+        {
+            button.Content = "Start";
         }
 
         private void handledBtn_Click(object sender, RoutedEventArgs e)
@@ -133,6 +157,7 @@ namespace PASample.Wpf
         {
             var ex = new System.ArgumentException("Argument is incorrect");
             MessageBox.Show("Thrown Error simulated and sent to PA");
+            throw ex;
         }
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)

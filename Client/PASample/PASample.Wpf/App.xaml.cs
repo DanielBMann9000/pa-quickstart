@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace PASample.Wpf
@@ -22,6 +23,7 @@ namespace PASample.Wpf
         private static readonly string _department = _departments[_rand.Next(0, _departments.Length)];
         private static readonly string _userName = _userNames[_rand.Next(0, _userNames.Length)];
         private static readonly string _licenseKey = GetLicenseKey();
+        private static readonly Dictionary<string, object> customData = new Dictionary<string, object> { { "Department", _department }, { "License", _licenseKey} }; 
 
         internal static string GetLicenseKey()
         {
