@@ -82,7 +82,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PAClientFactory.cs" />
+    <Compile Include="PAClientProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
