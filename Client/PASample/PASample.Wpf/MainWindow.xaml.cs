@@ -35,7 +35,7 @@ namespace PASample.Wpf
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            PAClientFactory.ReportException(ExceptionType.Uncaught, e.ExceptionObject as Exception, @"Exception bubbled up to the top of the stack.");
+            PAClientProvider.ReportException(ExceptionType.Uncaught, e.ExceptionObject as Exception, @"Exception bubbled up to the top of the stack.");
             MessageBox.Show("Unhandled Error simulated");
         }
 
@@ -47,10 +47,10 @@ namespace PASample.Wpf
             {
                 if (!string.IsNullOrEmpty(_lastTab))
                 {
-                    PAClientFactory.StopFeature(_lastTab);
+                    PAClientProvider.StopFeature(_lastTab);
                 }
                 _lastTab = ((TabItem)source.SelectedItem).Tag as string;
-                PAClientFactory.StartFeature(_lastTab);
+                PAClientProvider.StartFeature(_lastTab);
             }
         }
 
@@ -75,7 +75,7 @@ namespace PASample.Wpf
                 var keys = new ExtendedKeys();
                 keys.Add("Happiness", slider.Value);
                 keys.Add("Color", favoriteColor.SelectedValue.ToString());
-                PAClientFactory.FeatureTick("Feedback Submitted", keys);
+                PAClientProvider.FeatureTick("Feedback Submitted", keys);
 
                 MessageBox.Show("Thank you for submitting your feedback", "Feedback Submitted");
             }
@@ -91,12 +91,12 @@ namespace PASample.Wpf
 
             if (button.Content.Equals("Start"))
             {
-                PAClientFactory.StartFeature("Performance Counter");
+                PAClientProvider.StartFeature("Performance Counter");
                 button.Content = "Stop";
             }
             else
             {
-                PAClientFactory.StopFeature("Performance Counter");
+                PAClientProvider.StopFeature("Performance Counter");
                 button.Content = "Start";
             }
         }
