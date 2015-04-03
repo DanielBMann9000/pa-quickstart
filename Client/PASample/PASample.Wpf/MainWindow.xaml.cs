@@ -69,7 +69,7 @@ namespace PASample.Wpf
                 var keys = new ExtendedKeys();
                 keys.Add("Happiness", slider.Value);
                 keys.Add("Color", favoriteColor.SelectedValue.ToString());
-                PAClientFactory.FeatureTick("Feedback Submitted", keys);
+                PAClientProvider.FeatureTick("Feedback Submitted", keys);
 
                 MessageBox.Show("Thank you for submitting your feedback", "Feedback Submitted");
             }
