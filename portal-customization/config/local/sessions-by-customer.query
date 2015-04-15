@@ -1,0 +1,43 @@
+{
+  "name": "KeyStats",
+  "domain": "PreEmptive.Sessions",
+  "aggregate_on": 
+  [
+
+		  {"field":"Customer"}
+		  
+		  
+  ],
+  "fields": [
+    {
+      "field": "AppId_Version"
+    },
+    {
+      "field": "Time"
+    },
+    {
+      "field": "StartCount"
+    },
+    {
+      "field": "StopCount"
+    },
+    {
+      "field": "CompleteCount"
+    },
+	  {
+      "field": "Count"
+    },
+    {
+      "field": "NewUsers"
+    },
+    {
+      "field": "ReturningUsers"
+    },
+	  {
+      "field": "UniqueUsers"
+    },
+    {
+      "field": "TotalLength"
+    } 
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Critical Activity",
+  "icon": "icon-bolt",
+  "widgets": [
+    {
+      "widget_id": "sessions-by-customer",
+      "span": 6,
+      "max_height": "318px"
+    }
+  ]
+}
+
+

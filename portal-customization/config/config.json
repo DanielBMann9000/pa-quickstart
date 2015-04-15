@@ -1,0 +1,83 @@
+{
+  "default_report": "preemptive:overview",
+  "display_date_format": "m\/d\/yy",
+  "input_date_format": "mm\/dd\/yyyy",
+  "reports": {
+    "overview": "preemptive:overview",
+    "critical-activity": "local:critical-activity",
+    "exceptions": "preemptive:exceptions",
+    "version-adoption": "preemptive:version-adoption",
+    "tamper": "preemptive:tamper",
+    "custom-data-summary": "preemptive:custom-data-summary",
+    "time-and-location": "preemptive:time-and-location",
+    "query-data": "local:query-data\/query-data"
+  },
+  "default_filters": [
+    {
+      "label": "Date Range",
+      "type": "DateRange",
+      "domains": [
+        "All"
+      ],
+      "fields": [
+        "Time"
+      ]
+    },
+    {
+      "label": "Application",
+      "type": "Application",
+      "domains": [
+        "All"
+      ],
+      "fields": [
+        "AppId_Version"
+      ]
+    },
+    {
+      "label": "OS",
+      "type": "Many",
+      "domains": [
+        "All"
+      ],
+      "fields": [
+        "OS"
+      ],
+      "hidden": true
+    },
+    {
+      "label": "Runtime",
+      "type": "Many",
+      "domains": [
+        "All"
+      ],
+      "fields": [
+        "Runtime"
+      ],
+      "hidden": true
+    },
+    {
+      "label": "Location",
+      "type": "Many",
+      "domains": [
+        "All"
+      ],
+      "fields": [
+        "Country"
+      ],
+      "hidden": true
+    },
+    {
+      "label": "Customer",
+      "type": "Many",
+      "domains": [
+        "All"
+      ],
+      "fields": [
+        "Customer"
+      ],
+      "hidden": true
+    }
+  ]
+}
+
+

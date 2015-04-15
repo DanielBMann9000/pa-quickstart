@@ -1,0 +1,27 @@
+{
+  "title": "Customer Activity",
+  "type": "Table",
+  "input": "sessions-by-customer.transformation>aggregation",
+  "options": {
+      "show_count":10,
+      "columns": [
+		  "data.Customer",
+		  {
+				"key": "data.Count",
+				"as": "Total Sessions"
+		  },
+		  {
+				"key": "AvgLength",
+				"as": "Avg. Session Length"
+		  },
+		  "data.UniqueUsers"
+	
+	  ],
+	  "onclick": {
+      "action": "filter",
+      "target": "Customer",
+      "value": "data.Customer",
+      "title": "click to filter"
+    }
+  }
+}
